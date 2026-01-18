@@ -4,6 +4,7 @@ import com.SonuYadav.Linkedin.Post_Service.controller.PostController;
 import com.SonuYadav.Linkedin.Post_Service.dto.PostCreateRequestDto;
 import com.SonuYadav.Linkedin.Post_Service.dto.PostDto;
 import com.SonuYadav.Linkedin.Post_Service.entity.Post;
+import com.SonuYadav.Linkedin.Post_Service.exception.ResourceNotFoundException;
 import com.SonuYadav.Linkedin.Post_Service.repository.PostRepository;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
@@ -21,6 +22,11 @@ public class PostService {
                 Post post=modelMapper.map(postDto,Post.class);
                 post.setUserId(id);
                 postRepository.save(post);
+                return modelMapper.map(post,PostDto.class);
+        }
+
+        public PostDto getPostById(Long postId) {
+                Post post=postRepository.findById(postId).orElseThrow(()->new ResourceNotFoundException("Post not found"));
                 return modelMapper.map(post,PostDto.class);
         }
 }
