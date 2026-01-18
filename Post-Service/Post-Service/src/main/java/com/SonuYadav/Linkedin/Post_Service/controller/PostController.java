@@ -17,8 +17,6 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/posts")
 public class PostController {
-
-
     private  final PostService postService;
     @PostMapping
     ResponseEntity<PostDto> createPost(@RequestBody PostCreateRequestDto postDto){
@@ -31,4 +29,6 @@ public class PostController {
         PostDto postDto=postService.getPostById(postId);
         return  ResponseEntity.ok(postDto);
     }
+
+
 }
