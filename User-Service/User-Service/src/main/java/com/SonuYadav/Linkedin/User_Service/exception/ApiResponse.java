@@ -1,15 +1,19 @@
 package com.SonuYadav.Linkedin.User_Service.exception;
 
+import lombok.Builder;
 import lombok.Data;
 
 import java.time.LocalDateTime;
 
 @Data
+
+
 public class ApiResponse <T>{
     private LocalDateTime timestamp;
     private T Data;
     private ApiError error;
     public ApiResponse() {
+
         this.timestamp = LocalDateTime.now();
     }
     public ApiResponse(T data) {
@@ -20,4 +24,6 @@ public class ApiResponse <T>{
         this();
         this.error = error;
     }
+
+
 }
