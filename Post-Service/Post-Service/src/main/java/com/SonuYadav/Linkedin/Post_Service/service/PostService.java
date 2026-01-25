@@ -11,6 +11,9 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 @RequiredArgsConstructor
 public class PostService {
@@ -28,5 +31,14 @@ public class PostService {
         public PostDto getPostById(Long postId) {
                 Post post=postRepository.findById(postId).orElseThrow(()->new ResourceNotFoundException("Post not found"));
                 return modelMapper.map(post,PostDto.class);
+        }
+
+        public List<PostDto> getPostsByUserId(Long userId) {
+                List<Post> posts=postRepository.findByUserId(userId);
+                return posts.
+                        stream().
+                        map(post -> modelMapper.map(post,PostDto.class)).
+                        collect(Collectors.toList());
+
         }
 }
