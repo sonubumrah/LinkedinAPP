@@ -19,7 +19,7 @@
         <module name="Post-Service" />
         <module name="User-Service" />
       </profile>
-      <profile name="Annotation profile for connection-service" enabled="true">
+      <profile name="Annotation profile for api-gateway" enabled="true">
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
