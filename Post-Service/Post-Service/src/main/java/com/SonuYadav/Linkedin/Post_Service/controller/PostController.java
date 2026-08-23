@@ -35,7 +35,7 @@ public class PostController {
     @GetMapping({"/{postId}"})
     ResponseEntity<PostDto> getPostById(@PathVariable Long postId){
        String userId =UserContextHolder.getUserId();
-        List<PersonDto> firstDegreeConnections = connectionsClient.getFirstDegreeConnections(Long.parseLong(userId));
+        List<PersonDto> firstDegreeConnections = connectionsClient.getFirstDegreeConnections();
        log.info("Get post by id endpoint called for postId: {} and userId: {}", postId, userId);
         PostDto postDto=postService.getPostById(postId);
         return  ResponseEntity.ok(postDto);

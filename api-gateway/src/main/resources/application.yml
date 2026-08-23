@@ -1,0 +1,98 @@
+#
+#jwt:
+#  secretKey: abcdefghrhbnklmzxcv89bnmzxcvbnm123456
+#
+#spring:
+#  application:
+#    name: api-gateway
+#
+#  cloud:
+#    gateway:
+#      server:
+#        webm:
+#          routes:
+#            - id: user-service
+#              uri: lb://user-service
+#              predicates:
+#                - Path=/api/v1/users/**
+#              filters:
+#                - StripPrefix=2
+#
+#            - id: post-service
+#              uri: lb://post-service
+#              predicates:
+#                - Path=/api/v1/posts/**
+#              filters:
+#                - StripPrefix=2
+#                - name: AuthenticationFilter
+#
+#
+#            - id: connection-service
+#              uri: lb://connection-service
+#              predicates:
+#                - Path=/api/v1/connections/**
+#              filters:
+#                - StripPrefix=2
+#                - name: AuthenticationFilter
+#
+#server:
+#  port: 9095
+#
+#eureka:
+#  client:
+#    service-url:
+#        include: "*"
+#
+jwt:
+  secretKey: abcdefghrhbnklmzxcv89bnmzxcvbnm123456
+
+spring:
+  application:
+    name: api-gateway
+
+  cloud:
+    gateway:
+      server:
+        webflux:
+          routes:
+            - id: user-service
+              uri: lb://User-Service
+              predicates:
+                - Path=/api/v1/users/**
+              filters:
+                - StripPrefix=2
+
+            - id: post-service
+              uri: lb://Post-Service
+              predicates:
+                - Path=/api/v1/posts/**
+              filters:
+                - StripPrefix=2
+                - AuthenticationFilter
+
+            - id: connection-service
+              uri: lb://Connection-Service
+              predicates:
+                - Path=/api/v1/connections/**
+              filters:
+                - StripPrefix=2
+                - AuthenticationFilter
+
+server:
+  port: 9097
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:9091/eureka/
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+
+logging:
+  level:
+    org.springframework.cloud.gateway: DEBUG
+    org.springframework.cloud.loadbalancer: DEBUG
