@@ -16,14 +16,14 @@ public class LikesController {
     @PostMapping("/{postId}")
     public ResponseEntity<Void> likePost(@PathVariable Long postId) {
         log.info("Like post endpoint called");
-        postLikesService.likePost(postId,1L);
+        postLikesService.likePost(postId);
         return ResponseEntity.noContent().build();
     }
 
     @DeleteMapping("/{postId}")
     public ResponseEntity<Void> unlikePost(@PathVariable Long postId) {
         log.info("DisLike post endpoint called");
-        postLikesService.unlikePost(postId,1L);
+        postLikesService.unlikePost(postId);
         return ResponseEntity.noContent().build();
     }
 
