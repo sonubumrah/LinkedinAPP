@@ -36,4 +36,25 @@ public class ConnectionController {
         List<Person> thirdDegreeConnections = connectionService.getThirdDegreeConnections(userId);
         return ResponseEntity.ok(thirdDegreeConnections);
     }
+    @PostMapping("/request/{receiverUserId}")
+    ResponseEntity<Boolean> sendConnectionRequest(@PathVariable Long receiverUserId) {
+        Long senderUserId = Long.parseLong(UserContextHolder.getUserId());
+        log.info("Send connection request endpoint called for senderUserId: {}, receiverUserId: {}", senderUserId, receiverUserId);
+        Boolean requestSent = connectionService.sendConnectionRequest(senderUserId, receiverUserId);
+        return ResponseEntity.ok(requestSent);
+    }
+    @PostMapping("/accept/{senderUserId}")
+    ResponseEntity<Void> acceptConnectionRequest(@PathVariable Long senderUserId) {
+        Long receiverUserId = Long.parseLong(UserContextHolder.getUserId());
+        log.info("Accept connection request endpoint called for senderUserId: {}, receiverUserId: {}", senderUserId, receiverUserId);
+        connectionService.acceptConnectionRequest(senderUserId, receiverUserId);
+        return ResponseEntity.ok().build();
+    }
+    @PostMapping("/reject/{senderUserId}")
+    ResponseEntity<Void> rejectConnectionRequest(@PathVariable Long senderUserId) {
+        Long receiverUserId = Long.parseLong(UserContextHolder.getUserId());
+        log.info("Reject connection request endpoint called for senderUserId: {}, receiverUserId: {}", senderUserId, receiverUserId);
+        connectionService.rejectConnectionRequest(senderUserId, receiverUserId);
+        return ResponseEntity.ok().build();
+    }
 }
